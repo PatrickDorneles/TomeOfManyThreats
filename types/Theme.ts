@@ -1,4 +1,4 @@
 export enum Theme {
     LIGHT = "fantasy",
-    DARK = "luxury"
+    DARK = "dracula"
 }

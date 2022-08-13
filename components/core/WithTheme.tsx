@@ -1,7 +1,9 @@
 import useLocalStorage from "@rehooks/local-storage";
 import { Moon, Sun } from "phosphor-react";
 import { FC, PropsWithChildren, useCallback, useEffect, useRef } from "react";
-import { Theme } from "../../types/Theme";
+import { Theme } from "types/Theme";
+import dynamic from 'next/dynamic'  
+import NoSsr from "./NoSsr";
 
 type Props = PropsWithChildren
 
@@ -34,11 +36,13 @@ export const WithTheme: FC<Props> = ({ children }) => {
     
     return <>
         <main ref={main} className="bg-base-100 min-h-screen relative">
-            <label className={`swap swap-rotate absolute top-4 right-6 ${theme === Theme.LIGHT && 'swap-active'}`}>
-              <input type="checkbox" onChange={switchTheme} checked={theme === Theme.LIGHT} />
-              <Sun className='w-10 h-10 text-primary swap-on' />
-              <Moon className='w-10 h-10 text-primary swap-off' />
-            </label>
+            <NoSsr>
+              <label className={`swap swap-rotate absolute top-4 right-6 ${theme === Theme.LIGHT && 'swap-active'}`}>
+                <input type="checkbox" onChange={switchTheme} checked={theme === Theme.LIGHT} />
+                <Sun className='w-10 h-10 text-primary swap-on' />
+                <Moon className='w-10 h-10 text-primary swap-off' />
+              </label>
+            </NoSsr>
             {children}
         </main>
     </>

@@ -9,7 +9,7 @@ module.exports = {
     logs: true,
     rtl: false,
     prefix: "",
-    themes: ["fantasy", "coffee", "halloween", "luxury"]
+    themes: ["fantasy", "coffee", "halloween", "luxury", "dracula"]
   },
   
   content: [
