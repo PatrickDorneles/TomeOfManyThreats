@@ -1,15 +1,14 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { WithTheme } from '../components/core/WithTheme'
 import { LoginModal } from '../components/layouts/LoginModal'
 import { SignUpModal } from '../components/layouts/SignUpModal'
 
 const Home: NextPage = () => {
   
   return (
-    <WithTheme>
+    <>
       <Head>
-        <title>ToMT 🐲📖</title>
+        <title>ToMT from Jotun 🐲📖</title>
       </Head>
       <div
         className='
@@ -29,7 +28,7 @@ const Home: NextPage = () => {
             text-3xl 
             text-primary 
             font-bold
-          '>Tome of Many Threats <span className='text-base'>from The LoreKeeper</span></h1>
+          '>Tome of Many Threats <span className='text-base'>from Jotun</span></h1>
           <h2 className='
             lg:text-2xl 
             text-lg 
@@ -58,7 +57,7 @@ const Home: NextPage = () => {
             >🐲</p>
         </aside>
       </div>
-    </WithTheme>
+    </>
   )
 }
 
