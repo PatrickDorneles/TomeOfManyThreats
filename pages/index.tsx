@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { LoginModal } from '../components/layouts/LoginModal'
 import { SignUpModal } from '../components/layouts/SignUpModal'
 
-const Home: NextPage = () => {
+const IndexPage: NextPage = () => {
   
   return (
     <>
@@ -61,4 +61,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default IndexPage

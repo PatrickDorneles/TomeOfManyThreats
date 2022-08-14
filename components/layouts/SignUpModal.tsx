@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import { DiscordLogo, GithubLogo } from "phosphor-react";
 import { FC } from "react";
+import { signIn } from 'next-auth/react'
 
 
 export const SignUpModal: FC = () => <>
@@ -27,9 +28,7 @@ export const SignUpModal: FC = () => <>
           repeatPassword: ''
          }}
          
-         onSubmit={(value) => {
-          
-         }}
+         onSubmit={(value) => {}}
         >
           <Form className="flex flex-col gap-1">
   
@@ -70,11 +69,17 @@ export const SignUpModal: FC = () => <>
         <div className="divider">OR LOGIN WITH</div>
         
         <section className="flex gap-2 justify-center">
-          <button className="flex items-center justify-center btn gap-2"> 
+          <button 
+            className="flex items-center justify-center btn gap-2"
+            onClick={() => signIn('discord')}
+            > 
             <DiscordLogo className="text-[2em] text-center"/>
             <span className="text-[1.2em]"> Discord </span>
           </button>
-          <button className="flex items-center justify-center btn gap-2"> 
+          <button 
+            className="flex items-center justify-center btn gap-2"
+            onClick={() => signIn('github')}
+            > 
             <GithubLogo className="text-[2em] text-center"/>
             <span className="text-[1.2em]"> GitHub </span>
           </button>
