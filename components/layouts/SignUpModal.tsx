@@ -6,12 +6,13 @@ import { signIn } from 'next-auth/react'
 
 export const SignUpModal: FC = () => <>
     <input type="checkbox" id="sign-up" className="modal-toggle" />
-    <div className="
+    <label htmlFor="sign-up" className="
       sm:modal-middle
       modal 
       modal-bottom 
+      cursor-pointer
     ">
-      <div className="
+      <label className="
         sm:w-8/12 
         modal-box 
         relative 
@@ -85,6 +86,6 @@ export const SignUpModal: FC = () => <>
           </button>
         </section>
         
-      </div>
-    </div>
+      </label>
+    </label>
 </>

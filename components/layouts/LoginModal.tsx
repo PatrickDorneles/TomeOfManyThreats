@@ -4,12 +4,13 @@ import { FC } from "react";
 
 export const LoginModal: FC = () => <>
     <input type="checkbox" id="login" className="modal-toggle" />
-    <div className="
+    <label  htmlFor="login" className="
       sm:modal-middle
       modal 
       modal-bottom 
+      cursor-pointer
     ">
-      <div className="
+      <label className="
         sm:w-8/12 
         modal-box 
         relative 
@@ -61,6 +62,6 @@ export const LoginModal: FC = () => <>
           </button>
         </section>
         
-      </div>
-    </div>
+      </label>
+    </label>
 </>
