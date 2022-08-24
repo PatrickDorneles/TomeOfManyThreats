@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   </SessionProvider>
 }
 
-function getBaseUrl() {
+export function getBaseUrl() {
   if (typeof window !== 'undefined') {
     return '';
   }

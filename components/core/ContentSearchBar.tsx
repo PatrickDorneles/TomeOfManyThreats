@@ -46,7 +46,7 @@ export const ContentSearchBar: FC = () => {
                     onChange={(event) => setSearch(event.target.value)} 
                     className="h-full flex-1 bg-transparent outline-none" />
                     
-                    <section className="absolute right-2 opacity-60">
+                    <section className="invisible absolute right-2 opacity-60 md:visible">
                         <kbd className="kbd">ctrl</kbd> + <kbd className="kbd">k</kbd>
                     </section>
                 </div>

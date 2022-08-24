@@ -1,23 +1,25 @@
 import { Formik, Form, Field } from "formik";
+import { signIn } from "next-auth/react";
+import { getBaseUrl } from "pages/_app";
 import { DiscordLogo, GithubLogo } from "phosphor-react";
 import { FC } from "react";
 
 export const LoginModal: FC = () => <>
     <input type="checkbox" id="login" className="modal-toggle" />
     <label  htmlFor="login" className="
-      sm:modal-middle
-      modal 
+      modal
       modal-bottom 
-      cursor-pointer
+      cursor-pointer 
+      sm:modal-middle
     ">
       <label className="
-        sm:w-8/12 
         modal-box 
         relative 
-        max-w-4xl
+        max-w-4xl 
+        sm:w-8/12
       ">
         <label htmlFor="login" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-        <h3 className="text-2xl font-bold text-center">Login</h3>
+        <h3 className="text-center text-2xl font-bold">Login</h3>
         
         <Formik
          initialValues={{
@@ -34,14 +36,14 @@ export const LoginModal: FC = () => <>
               <label className="label"htmlFor="email">
                 <span className="label-text">Email</span>
               </label>
-              <Field className="input input-bordered w-full max-w-lg" id="email" name="email" placeholder="john@acme.com" type="email" />
+              <Field className="input-bordered input w-full max-w-lg" id="email" name="email" placeholder="john@acme.com" type="email" />
             </div>
             
             <div className="form-control w-full max-w-lg">
               <label className="label"htmlFor="password">
                 <span className="label-text">Password</span>
               </label>
-              <Field className="input input-bordered w-full max-w-lg" id="password" name="password" placeholder="********" type="password" />
+              <Field className="input-bordered input w-full max-w-lg" id="password" name="password" placeholder="********" type="password" />
             </div>
             
             <button className="btn btn-primary mt-6" type="submit">Submit</button>
@@ -51,13 +53,13 @@ export const LoginModal: FC = () => <>
         
         <div className="divider">OR LOGIN WITH</div>
         
-        <section className="flex gap-2 justify-center">
-          <button className="flex items-center justify-center btn gap-2"> 
-            <DiscordLogo className="text-[2em] text-center"/>
+        <section className="flex justify-center gap-2">
+          <button onClick={() => signIn('discord', { callbackUrl: getBaseUrl() })} className="btn flex items-center justify-center gap-2"> 
+            <DiscordLogo className="text-center text-[2em]"/>
             <span className="text-[1.2em]"> Discord </span>
           </button>
-          <button className="flex items-center justify-center btn gap-2"> 
-            <GithubLogo className="text-[2em] text-center"/>
+          <button onClick={() => signIn('github', { callbackUrl: getBaseUrl() })} className="btn flex items-center justify-center gap-2"> 
+            <GithubLogo className="text-center text-[2em]"/>
             <span className="text-[1.2em]"> GitHub </span>
           </button>
         </section>

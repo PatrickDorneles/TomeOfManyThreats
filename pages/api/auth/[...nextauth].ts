@@ -12,6 +12,8 @@ export default NextAuth({
         DiscordProvider({
             clientId: process.env.DISCORD_CLIENT_ID || "",
             clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
+            
+            
         }),
         GithubProvider({
             clientId: process.env.GITHUB_CLIENT_ID || "",
@@ -53,9 +55,10 @@ export default NextAuth({
             return {
                 ...params.session,
                 user: {
-                    ...params.user
+                    ...params.user,
                 }
             }
         },
+        
     },
   })
