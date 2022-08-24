@@ -4,12 +4,15 @@ import { GlobalComponents } from 'components/core/GlobalComponents'
 import { SessionProvider } from 'next-auth/react'
 import { withTRPC } from '@trpc/next'
 import { AppRouter } from 'server/router'
+import { ThemeProvider } from 'contexts/ThemeContext'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return <SessionProvider session={session}>
-    <GlobalComponents>
-      <Component {...pageProps} />
-    </GlobalComponents>
+    <ThemeProvider>
+      <GlobalComponents>
+        <Component {...pageProps} />
+      </GlobalComponents>
+    </ThemeProvider>
   </SessionProvider>
 }
 

@@ -69,7 +69,7 @@ model Creature {
   sheetValues Json
 
   tags     Tag[]
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
 }
 

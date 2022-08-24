@@ -22,17 +22,18 @@ a {
 
 ::-webkit-scrollbar {
   width: 10px;
+  background-color: hsl(var(--b1));
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--b1));
+  background-color: hsl(var(--b1));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--s));
+  background-color: hsl(var(--s));
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--sf));
+  background-color: hsl(var(--sf));
 }
