@@ -1,9 +1,14 @@
 import type { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { LoginModal } from '../components/layouts/LoginModal'
 import { SignUpModal } from '../components/layouts/SignUpModal'
 
 const IndexPage: NextPage = () => {
+  const { status } = useSession()
+  const { push } = useRouter()
   
   return (
     <>
@@ -12,48 +17,61 @@ const IndexPage: NextPage = () => {
       </Head>
       <div
         className='
+        flex
+        min-h-screen
+        flex-col-reverse
+        items-center
+        justify-end
+        pt-16
         lg:flex-row
         lg:justify-around
-        flex
-        flex-col-reverse
-        pt-16
-        justify-end
-        items-center
-        min-h-screen
         '
       >
         <aside className='flex flex-col gap-3 p-8'>
           <h1 className='
-            lg:text-5xl 
             text-3xl 
+            font-bold 
             text-primary 
-            font-bold
+            lg:text-5xl
           '>Tome of Many Threats <span className='text-base'>from Jotun</span></h1>
           <h2 className='
-            lg:text-2xl 
-            text-lg 
+            max-w-xl 
             break-words 
-            max-w-xl
+            text-lg 
+            lg:text-2xl
           '>Your place to keep your monsters. Your place to store traps. Your place for evil DM stuff 😈</h2>
           
-          <section className='flex items-center justify-center lg:justify-start'> 
-            <label htmlFor='login' className='btn btn-primary w-fit'> Login </label>
-            <span className='mx-2'>Or</span>
-            <label htmlFor='sign-up' className='btn btn-secondary w-fit'> Sign Up </label>
-          </section>
+          { status === 'authenticated' &&
+            <section onClick={() => push('/dashboard')} className='flex items-center justify-center lg:justify-start'> 
+              <label className='btn btn-primary w-fit'> Go to Dashboard </label>
+            </section>
+          }
+          
+          { status === 'unauthenticated' && 
+            <section className='flex items-center justify-center lg:justify-start'> 
+              <label htmlFor='login' className='btn btn-primary w-fit'> Login </label>
+              <span className='mx-2'>Or</span>
+              <label htmlFor='sign-up' className='btn btn-secondary w-fit'> Sign Up </label>
+            </section>
+          }
+          
+          {
+            status === 'loading' &&
+            <section className='flex items-center justify-center lg:justify-start'> 
+              <progress className="progress w-56"></progress>
+            </section>
+          }
           
           <LoginModal />
           <SignUpModal />
           
         </aside>
-        <aside className='lg:mb-24 mb-10'>
-          <p className='
-            lg:text-[16em] 
-            text-[6em] 
-            -rotate-[25deg] 
-            transform 
+        <aside className='mb-10 lg:mb-24'>
+          <p className=' 
             select-none 
-            text-center'
+            text-center 
+            text-[6em] 
+            lg:text-[16em]'
             >🐲</p>
         </aside>
       </div>

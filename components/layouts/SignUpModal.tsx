@@ -21,6 +21,7 @@ export const SignUpModal: FC = () => <>
       ">
         <label htmlFor="sign-up" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
         <h3 className="text-2xl font-bold mb-6 text-center">Sign Up</h3>
+        
         <Formik
          initialValues={{
           username: '',
@@ -74,12 +75,12 @@ export const SignUpModal: FC = () => <>
             className="flex items-center justify-center btn gap-2"
             onClick={() => signIn('discord')}
             > 
-            <DiscordLogo className="text-[2em] text-center"/>
+            <DiscordLogo onClick={() => signIn('discord', { callbackUrl: 'https://localhost:3000' })} className="text-[2em] text-center"/>
             <span className="text-[1.2em]"> Discord </span>
           </button>
           <button 
             className="flex items-center justify-center btn gap-2"
-            onClick={() => signIn('github')}
+            onClick={() => signIn('github', { callbackUrl: 'https://localhost:3000' })}
             > 
             <GithubLogo className="text-[2em] text-center"/>
             <span className="text-[1.2em]"> GitHub </span>
