@@ -18,7 +18,7 @@ const IndexPage: NextPage = () => {
       <div
         className='
         flex
-        min-h-screen
+        flex-1
         flex-col-reverse
         items-center
         justify-end

@@ -43,23 +43,23 @@ export const GlobalComponents: FC<Props> = ({ children }) => {
     
     
     return <>
-        <main ref={main} className="relative min-h-screen bg-base-100">
+        <main ref={main} className="relative flex min-h-screen flex-col bg-base-100">
             <NoSsr>
-              <section className="absolute top-4 flex w-full items-center pl-6">
+              <nav id="NavBar" className="flex w-full items-center justify-between bg-base-300 py-1 pl-6">
                 <ContentSearchBar />
-                <nav id="GlobalButtonTray" className="absolute right-0 flex w-min items-center gap-4 rounded-l-full bg-neutral px-4 py-2">
+                <section id="ButtonTray" className="flex h-full w-min items-center gap-4 self-end justify-self-end rounded-l-full px-4 py-2">
                   <label className={`swap swap-rotate rounded-full ${theme === Theme.LIGHT && 'swap-active'}`}>
                     <input type="checkbox" onChange={switchTheme} checked={theme === Theme.LIGHT} />
-                    <Sun className='swap-on h-10 w-10 text-neutral-content' />
-                    <Moon className='swap-off h-10 w-10 text-neutral-content' />
+                    <Sun className='swap-on h-7 w-7 text-base-content' />
+                    <Moon className='swap-off h-7 w-7 text-base-content' />
                   </label>
                   { status === 'authenticated' && (
                     <button className="rounded-full" onClick={clickSignOut}>
-                      <SignOut className="h-10 w-10 text-neutral-content" />
+                      <SignOut className="h-7 w-7 text-base-content" />
                     </button>
                   )}
-                </nav>
-              </section>
+                </section>
+              </nav>
             </NoSsr>
             {children}
         </main>
