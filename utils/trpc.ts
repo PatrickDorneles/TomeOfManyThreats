@@ -3,4 +3,4 @@ import type { AppRouter } from 'server/router';
 
 export const trpc = createReactQueryHooks<AppRouter>();
 
-export const { useQuery, useMutation } = trpc
+export const { useQuery: useServerQuery, useMutation: useServerMutation } = trpc

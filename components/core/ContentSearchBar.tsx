@@ -3,13 +3,13 @@ import { FC, useEffect, useRef, useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useDebounce } from "use-debounce";
-import { trpc } from "utils/trpc";
+import { trpc, useServerQuery } from "utils/trpc";
 
-export const ContentSearchBar: FC = () => {
+export const PostSearchBar: FC = () => {
     const [search, setSearch] = useState('')
     const [isOnFocus, setIsOnFocus] = useState(false)
     useDebounce(search, 1000)
-    const { data: contents, isLoading: isContentsLoading } = trpc.useQuery(['creatures.search', search], {
+    const { data: posts, isLoading: isContentsLoading } = useServerQuery(['posts:search', search], {
         enabled: search.length > 0
     })
     const searchInputRef = useRef<HTMLInputElement>(null)
@@ -22,8 +22,8 @@ export const ContentSearchBar: FC = () => {
         searchInputRef.current?.focus()
     })
     
-    const shouldRenderContentList = 
-        Boolean(contents?.length) 
+    const shouldRenderList = 
+        Boolean(posts?.length) 
         && search
         && isOnFocus
     
@@ -31,12 +31,12 @@ export const ContentSearchBar: FC = () => {
         search && isOnFocus && isContentsLoading
     
     const shouldRenderNothingFound =
-        search && isOnFocus && !isContentsLoading && !contents?.length
+        search && isOnFocus && !isContentsLoading && !posts?.length
     
     return (
         <>
             <section ref={inside} className="relative flex min-h-[3rem] flex-col gap-4">
-                <div className=" input relative z-50 flex  items-center transition focus-within:input-bordered focus-within:input-primary focus-within:absolute focus-within:top-0 focus-within:left-0 focus-within:w-80 ">
+                <div className="input z-50 flex items-center transition-all focus-within:input-bordered focus-within:input-primary focus-within:absolute focus-within:top-0 focus-within:left-0 focus-within:w-80 ">
                     <MagnifyingGlass weight="bold" className="mr-3 h-4 w-4 text-base-content" />
                     <input type="text" 
                     placeholder="Search..."
@@ -52,17 +52,17 @@ export const ContentSearchBar: FC = () => {
                 </div>
                 
                 <section className="absolute left-0 top-[130%] flex w-80 flex-col items-center rounded bg-base-300 py-2 text-base-content shadow empty:invisible sm:w-96">
-                    { (shouldRenderContentList) && (
+                    { (shouldRenderList) && (
                         <>
-                            <ul className="menu w-full">
-                                {search.length && contents?.map((content) => 
-                                    <li key={content.id}>
-                                        <a onClick={() => {setIsOnFocus(true); console.log(content)}} className="flex w-full flex-col items-start gap-1 p-2 px-4 transition" >
-                                            <span className="font-semibold">{content.name} <span className="opacity-60">({content.sheetCode})</span></span>
+                            <ul className="w-full">
+                                {search.length && posts?.map((post) => 
+                                    <li key={post.id}>
+                                        <a onClick={() => {setIsOnFocus(true); console.log(post)}} className="flex w-full cursor-pointer select-none flex-col items-start gap-1 p-2 px-4 active:bg-primary active:text-primary-content" >
+                                            <span className="font-semibold ">{post.title} <span className="opacity-60">({post.system})</span></span>
                                             <section className="flex flex-wrap gap-1">
-                                                {content.tags.map((tag) => <div key={tag.id} className="badge badge-primary">{tag.name}</div>)}
+                                                {post.tags.map((tag) => <div key={tag.id} className="badge badge-primary">{tag.name}</div>)}
                                             </section>
-                                            <span className="text-ellipsis text-sm">{content.description}</span>
+                                            <span className="text-ellipsis text-sm">{post.text}</span>
                                         </a> 
                                     </li>
                                 )}

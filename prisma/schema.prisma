@@ -42,14 +42,15 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String    @unique
   emailVerified DateTime?
   image         String?
   password      String?
 
   accounts  Account[]
   sessions  Session[]
-  creatures Creature[]
+  posts     Post[]
+  reactions PostReaction[]
 }
 
 model VerificationToken {
@@ -60,23 +61,48 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Creature {
-  id String @id
+enum PageType {
+  CREATURE
+  ARTICLE
+}
 
-  name        String
-  description String?
-  sheetCode   String
-  sheetValues Json
+model Post {
+  id String @id @default(cuid())
 
-  tags     Tag[]
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId String
+  title  String
+  text   String?  @db.Text
+  system String
+  sheet  Json?
+  type   PageType @default(ARTICLE)
+
+  tags      Tag[]
+  author    User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  String
+  reactions PostReaction[]
+}
+
+enum ReactionType {
+  POSITIVE
+  FUNNY
+  AWESOME
+  NEGATIVE
+}
+
+model PostReaction {
+  id String @id @default(cuid())
+
+  type ReactionType
+
+  post   Post   @relation(fields: [postId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+  postId String
+  userId String
 }
 
 model Tag {
-  id String @id
+  id String @id @default(cuid())
 
   name String @unique
 
-  creatures Creature[]
+  posts Post[]
 }

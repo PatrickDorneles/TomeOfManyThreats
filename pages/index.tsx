@@ -71,7 +71,8 @@ const IndexPage: NextPage = () => {
             select-none 
             text-center 
             text-[6em] 
-            lg:text-[16em]'
+            lg:text-[16em]
+            '
             >🐲</p>
         </aside>
       </div>

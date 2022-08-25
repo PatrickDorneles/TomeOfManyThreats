@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Sun, Moon, SignOut } from "phosphor-react";
 import { FC, useCallback, useContext } from "react";
 import { Theme } from "types/Theme";
-import { ContentSearchBar } from "./ContentSearchBar";
+import { PostSearchBar } from "./ContentSearchBar";
 import NoSsr from "./NoSsr";
 import { ProfileAvatar } from "./ProfileAvatar";
 
@@ -30,10 +30,9 @@ export const Navbar: FC = () => {
     
     
     return <NoSsr>
-        <nav id="NavBar" className="navbar relative m-2 flex w-[calc(100%-16px)] items-center justify-between gap-2 rounded bg-base-300 py-1 pl-6">
-          <button className="btn btn-ghost hidden text-2xl font-bold normal-case sm:flex" onClick={() => push('/')}>ToMT</button>
-          <ContentSearchBar />
-          <section id="ButtonTray" className="flex h-full flex-1 justify-end gap-4 rounded-l-full px-4 py-2">
+        <nav id="NavBar" className="navbar relative m-2 flex w-[calc(100%-16px)] items-center justify-between gap-2 rounded bg-base-300 px-4 py-1">
+          <PostSearchBar />
+          <section id="ButtonTray" className="flex h-full flex-1 justify-end gap-4">
             <label className={`swap swap-rotate rounded-full ${theme === Theme.LIGHT && 'swap-active'}`}>
               <input type="checkbox" onChange={switchTheme} checked={theme === Theme.LIGHT} />
               <Sun className='swap-on h-7 w-7 text-base-content' />

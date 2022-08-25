@@ -4,10 +4,12 @@ import { useEffect } from "react";
 
 export function useAuthRequired() {
     const { push } = useRouter()
-    const { status } = useSession()
+    const { data, status } = useSession()
     
     useEffect(() => {
         if(status === 'unauthenticated')
             push('/')
     }, [status, push])
+    
+    return data
 }

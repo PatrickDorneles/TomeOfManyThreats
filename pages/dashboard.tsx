@@ -1,55 +1,29 @@
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from "next"
-import { ContentSearchBar } from "components/core/ContentSearchBar"
-import { Creature } from "@prisma/client"
-import { prisma } from "prisma/client"
+import { PostSearchBar } from "components/core/ContentSearchBar"
 import { useAuthRequired } from "hooks/UseAuthRequired"
-import { getSession, useSession } from "next-auth/react"
-import { useRouter } from "next/router"
+import { useServerQuery } from "utils/trpc"
+import { useState } from "react"
 
-type Props = {
-    contents: Creature[]
-}
-
-const DashboardPage: NextPage<Props> = ({ contents }) => {
-    const { push } = useRouter()
-    useSession({ required: true, onUnauthenticated: () => {
-        push('/')
-    } })
+const DashboardPage: NextPage = () => {
+    const session = useAuthRequired()
+    const [page, setPage] = useState(1)
+    const { data: posts } = useServerQuery(['posts:mine', {
+        userEmail: session?.user?.email!,
+        page
+    }])
     
-    return <div>
-        <div className="hero min-h-screen bg-base-200">
+
+    return <div className="grid flex-1 place-items-center">
+        { !posts?.length && <div className="hero w-fit bg-base-200 p-8">
           <div className="hero-content text-center">
             <div className="max-w-md">
-              <h1 className="text-5xl font-bold">Hello there</h1>
-              <p className="py-6"></p>
-              <button className="btn btn-primary">Get Started</button>
+              <h1 className="text-5xl font-bold">Hello there, fellow adventurer! 🧙‍♂️</h1>
+              <p className="py-6">We noticed you do not have any page written or reacted on this immense tome, so you can start writing </p>
+              <button className="btn btn-primary">Create a post</button>
             </div>
           </div>
-        </div>
+        </div> }
     </div>
-}
-
-DashboardPage.displayName = ''
-
-export const getServerSideProps: GetServerSideProps<Props> = async ({ req }): Promise<GetServerSidePropsResult<Props>> => {
-    const session = await getSession()
-    if(!session || !session.user) return { redirect: { destination: '/404', statusCode: 302 }}
-    
-    const { user } = session
-    
-    const creatures = await prisma.creature.findMany({
-        where: {
-            author: {
-                email: user.email
-            }
-        }
-    })
-    
-    const contents: Creature[] = []
-    
-    contents.concat(creatures)
-    
-    return { props: { contents } }
 }
 
 export default DashboardPage
