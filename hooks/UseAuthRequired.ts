@@ -3,13 +3,19 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export function useAuthRequired() {
-    const { push } = useRouter()
-    const { data, status } = useSession()
+    const { push, pathname } = useRouter()
+    const { data, status } = useSession({ 
+        onUnauthenticated() {
+            push('/403')    
+        },
+        required: true
+    })
     
     useEffect(() => {
-        if(status === 'unauthenticated')
-            push('/')
-    }, [status, push])
+        if(status === "loading") {
+            push(`/loading?route=${ pathname}`)
+        }
+    }, [status, push, pathname])
     
-    return data
+    return { session: data, status }
 }

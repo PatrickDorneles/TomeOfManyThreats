@@ -1,14 +1,14 @@
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from "next"
 import { PostSearchBar } from "components/core/ContentSearchBar"
 import { useAuthRequired } from "hooks/UseAuthRequired"
-import { useServerQuery } from "utils/trpc"
 import { useState } from "react"
+import { useTrpcQuery } from "utils/trpc"
 
 const DashboardPage: NextPage = () => {
-    const session = useAuthRequired()
+    const { session } = useAuthRequired()
     const [page, setPage] = useState(1)
-    console.log('component',session?.user)
-    const {} = useServerQuery(['posts:mine', {
+    console.log('component',session)
+    const { data: myPosts } = useTrpcQuery(['posts:mine', {
       page
     }], { enabled: !!session?.user })
     
