@@ -9,7 +9,7 @@ export const PostSearchBar: FC = () => {
     const [search, setSearch] = useState('')
     const [isOnFocus, setIsOnFocus] = useState(false)
     useDebounce(search, 1000)
-    const { data: posts, isLoading: isContentsLoading } = useTrpcQuery(['posts:search', search], {
+    const { data: posts, isLoading: isContentsLoading } = useTrpcQuery(['public:search', search], {
         enabled: search.length > 0
     })
     const searchInputRef = useRef<HTMLInputElement>(null)

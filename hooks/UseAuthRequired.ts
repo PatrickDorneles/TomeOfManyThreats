@@ -1,12 +1,13 @@
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getToken } from 'next-auth/jwt'
 
 export function useAuthRequired() {
     const { push, pathname } = useRouter()
     const { data, status } = useSession({ 
         onUnauthenticated() {
-            push('/403')    
+            push('/401')    
         },
         required: true
     })
@@ -17,5 +18,5 @@ export function useAuthRequired() {
         }
     }, [status, push, pathname])
     
-    return { session: data, status }
+    return { session: data!, status, authenticated: status === 'authenticated' }
 }

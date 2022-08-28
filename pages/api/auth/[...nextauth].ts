@@ -14,50 +14,14 @@ export default NextAuth({
             clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
             
             
-        }),
-        GithubProvider({
-            clientId: process.env.GITHUB_CLIENT_ID || "",
-            clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
-        }),
-        Credentials({
-            credentials: {
-                email: { label: 'Email', type: 'text', placeholder: 'johndoe@email.com' },
-                password: { label: "Password", type: "password" }
-            },
-            async authorize(credentials, req) {
-                const user = await prisma.user.findFirst({
-                    where: {
-                        email: credentials?.email
-                    },
-                    include: {
-                        accounts: true
-                    }
-                })
-                
-                if(!user || !credentials?.password || !user.password) {
-                    return null
-                }
-                
-                const doesPasswordsMatch = verify(user.password, credentials?.password, { type: argon2i })
-                
-                if(!doesPasswordsMatch) {
-                    return null
-                }
-                
-                return user
-              }
-          
         })
     ],
+    session: { strategy: "jwt" },
     secret: process.env.NEXTAUTH_SECRET,
+    
     callbacks: {
         async session(params) {
-            return {
-                ...params.session,
-                user: {
-                    ...params.user,
-                }
-            }
+            return params.session
         },
         
     },

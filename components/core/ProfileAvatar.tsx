@@ -14,7 +14,7 @@ export const ProfileAvatar: FC = () => {
         </div>
     </Menu.Button>
     <Menu.Items as="ul" className="dropdown-content menu absolute top-[110%] right-0 gap-2 rounded-md bg-base-300 p-2 shadow">
-        <Menu.Item as="li" onClick={() => signOut()}>
+        <Menu.Item as="li" onClick={() => signOut({ callbackUrl: '/' })}>
             <span className="opacity-75"> 
                 <SignOut className="h-6 w-6" />
                 Sign out
