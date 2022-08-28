@@ -1,10 +1,11 @@
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from "next"
-import { PostSearchBar } from "components/core/ContentSearchBar"
+import { PostSearchBar } from "components/core/PostSearchBar"
 import { useAuthRequired } from "hooks/UseAuthRequired"
 import { useEffect, useState } from "react"
 import { useTrpcQuery } from "utils/trpc"
 import { withAuthOnly } from "hocs/WithAuthOnly"
 import { getSession } from "next-auth/react"
+import Link from "next/link"
 
 const DashboardPage: NextPage = () => {
     const { session } = useAuthRequired()
@@ -20,7 +21,11 @@ const DashboardPage: NextPage = () => {
               <div className="max-w-md">
                 <h1 className="text-5xl font-bold">Hello there, fellow adventurer! 🧙‍♂️</h1>
                 <p className="py-6">We noticed you do not have any page written or reacted on this immense tome, so you can start writing </p>
-                <a className="btn btn-primary">Create a post</a>
+                <Link href="/post/choose">
+                  <a className="btn btn-primary">
+                    Create a post
+                  </a>
+                </Link>
               </div>
             </div>
           </div>

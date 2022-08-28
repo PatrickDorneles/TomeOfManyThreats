@@ -5,7 +5,7 @@ import { Sun, Moon, SignOut } from "phosphor-react";
 import { FC, useCallback, useContext } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Theme } from "types/Theme";
-import { PostSearchBar } from "./ContentSearchBar";
+import { PostSearchBar } from "./PostSearchBar";
 import NoSsr from "./NoSsr";
 import { ProfileAvatar } from "./ProfileAvatar";
 
@@ -36,8 +36,8 @@ export const Navbar: FC = () => {
           <section id="ButtonTray" className="flex h-full flex-1 justify-end gap-4">
             <label className={`swap swap-rotate rounded-full ${theme === Theme.LIGHT && 'swap-active'}`}>
               <input type="checkbox" onChange={switchTheme} checked={theme === Theme.LIGHT} />
-              <Sun className='swap-on h-7 w-7 text-base-content' />
-              <Moon className='swap-off h-7 w-7 text-base-content' />
+              <Sun weight="duotone" className='swap-on h-7 w-7 text-base-content' />
+              <Moon weight="duotone" className='swap-off h-7 w-7 text-base-content' />
             </label>
             { status === 'authenticated' && (
               <ProfileAvatar />
