@@ -1,4 +1,5 @@
 import * as trpc from '@trpc/server';
+import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/client';
 import { z } from 'zod';
 
@@ -30,11 +31,15 @@ export const postsRouter = trpc
     .query('mine', {
         input: 
             z.object({
-                userEmail: z.string().email(),
                 page: z.number().default(1),
                 pageSize: z.number().default(9)
             }),
-        async resolve({ input }) {
+        
+        async resolve({ input, ctx }) {
+            const session = await getSession()
+            
+            console.log(session)
+            
             return []
         }
     })

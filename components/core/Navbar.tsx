@@ -3,6 +3,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Sun, Moon, SignOut } from "phosphor-react";
 import { FC, useCallback, useContext } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { Theme } from "types/Theme";
 import { PostSearchBar } from "./ContentSearchBar";
 import NoSsr from "./NoSsr";
@@ -11,7 +12,7 @@ import { ProfileAvatar } from "./ProfileAvatar";
 export const Navbar: FC = () => {
     const { setTheme, theme } = useContext(ThemeContext)
     const { status } = useSession()
-    const { push } = useRouter()
+    const { push } = useRouter()  
     
     const switchTheme = useCallback(() => {
       const themeSwitchMap = {

@@ -1,10 +1,9 @@
 import type { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { LoginModal } from '../components/layouts/LoginModal'
-import { SignUpModal } from '../components/layouts/SignUpModal'
+import { DiscordLogo } from 'phosphor-react'
+import { getBaseUrl } from './_app'
 
 const IndexPage: NextPage = () => {
   const { status } = useSession()
@@ -37,21 +36,22 @@ const IndexPage: NextPage = () => {
           <h2 className='
             max-w-xl 
             break-words 
-            text-lg 
+            text-xl 
             lg:text-2xl
           '>Your place to keep your monsters. Your place to store traps. Your place for evil DM stuff 😈</h2>
           
           { status === 'authenticated' &&
-            <section onClick={() => push('/dashboard')} className='flex items-center justify-center lg:justify-start'> 
+            <section onClick={() => push('/dashboard')} className='flex items-center justify-start'> 
               <label className='btn btn-primary w-fit'> Go to Dashboard </label>
             </section>
           }
           
           { status === 'unauthenticated' && 
-            <section className='flex items-center justify-center lg:justify-start'> 
-              <label htmlFor='login' className='btn btn-primary w-fit'> Login </label>
-              <span className='mx-2'>Or</span>
-              <label htmlFor='sign-up' className='btn btn-secondary w-fit'> Sign Up </label>
+            <section className='flex items-center justify-center text-lg sm:text-xl lg:justify-start'> 
+              Want to join? Login with <button onClick={() => signIn('discord', { callbackUrl: getBaseUrl() })} className="btn ml-2 flex items-center justify-center gap-2 border-none bg-discord-base text-sm text-white hover:bg-discord-darker"> 
+                <DiscordLogo weight='fill' className="text-center text-[2em] antialiased"/>
+                <span className="text-[1.2em]"> Discord </span>
+              </button>
             </section>
           }
           
@@ -62,8 +62,6 @@ const IndexPage: NextPage = () => {
             </section>
           }
           
-          <LoginModal />
-          <SignUpModal />
           
         </aside>
         <aside className='mb-10 lg:mb-24'>

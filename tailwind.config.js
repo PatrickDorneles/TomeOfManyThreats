@@ -9,7 +9,7 @@ module.exports = {
     logs: true,
     rtl: false,
     prefix: "",
-    themes: ["fantasy", "coffee", "halloween", "luxury", "dracula"]
+    themes: ["light", "dark"],
   },
   
   content: [
@@ -18,6 +18,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        discord: {
+          darker: '#3f5ca8',
+          base: '#7289da',
+          lighter: '#a5b9ff'
+        }
+      }
     },
   },
 }
