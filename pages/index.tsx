@@ -48,9 +48,9 @@ const IndexPage: NextPage = () => {
           
           { status === 'unauthenticated' && 
             <section className='flex items-center justify-center text-lg sm:text-xl lg:justify-start'> 
-              Want to join? Login with <button onClick={() => signIn('discord', { callbackUrl: getBaseUrl() })} className="btn ml-2 flex items-center justify-center gap-2 border-none bg-discord-base text-sm text-white hover:bg-discord-darker"> 
-                <DiscordLogo weight='fill' className="text-center text-[2em] antialiased"/>
-                <span className="text-[1.2em]"> Discord </span>
+              Want to join? Login with <button onClick={() => signIn('discord', { redirect: false })} className="btn ml-2 flex items-center justify-center gap-2 border-none bg-discord-base text-sm text-white hover:bg-discord-darker"> 
+                <DiscordLogo weight='duotone' className="text-center text-[2em] font-thin antialiased"/>
+                <span className="text-[1.2em] "> Discord </span>
               </button>
             </section>
           }
